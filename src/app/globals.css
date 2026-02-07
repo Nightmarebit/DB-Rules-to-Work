@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --db-red: #ec0016;
+    --db-dark: #282d37;
+    --db-light: #f0f3f5;
+    --db-yellow: #ffcc00;
+    --db-green: #3ecf8e;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-db-dark text-db-light font-sans text-base;
+    min-height: 100dvh;
+  }
+
+  /* Touch targets: minimum 48px for glove operation */
+  button,
+  [role='button'],
+  a[href].touch-target {
+    @apply min-h-touch min-w-touch;
+  }
+}
+
+@layer utilities {
+  .touch-target {
+    @apply min-h-[48px] min-w-[48px] inline-flex items-center justify-center;
+  }
+}
