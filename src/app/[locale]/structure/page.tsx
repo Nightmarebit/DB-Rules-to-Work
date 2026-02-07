@@ -5,12 +5,13 @@ import { Link } from '@/i18n/navigation';
 import { ListOrdered, ArrowRight } from 'lucide-react';
 import { Card } from '@/components/common/Card';
 
-const steps = [
+type Step = { key: string; linkHref?: string; linkKey: string };
+const steps: Step[] = [
   { key: 'step1', linkHref: '/rules', linkKey: 'step1Link' },
   { key: 'step2', linkHref: '/decision', linkKey: 'step2Link' },
   { key: 'step3', linkKey: 'step3Link' },
   { key: 'step4', linkHref: '/gsmr', linkKey: 'step4Link' },
-] as const;
+];
 
 export default function StructurePage() {
   const t = useTranslations('structure');
