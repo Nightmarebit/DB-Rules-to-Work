@@ -33,10 +33,10 @@ export default function RulesPage() {
 ];
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="mx-auto max-w-2xl space-y-6 min-w-0">
       <section>
-        <h1 className="text-2xl font-bold text-db-light md:text-3xl">{tNav('rules')}</h1>
-        <p className="mt-1 text-db-gray-400">{t('subtitle')}</p>
+        <h1 className="break-words text-2xl font-bold text-db-light md:text-3xl">{tNav('rules')}</h1>
+        <p className="mt-1 break-words text-db-gray-400">{t('subtitle')}</p>
       </section>
       <select
         value={category}

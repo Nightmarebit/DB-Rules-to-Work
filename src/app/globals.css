@@ -9,6 +9,9 @@
     --db-light: #f0f3f5;
     --db-yellow: #ffcc00;
     --db-green: #3ecf8e;
+    /* Glove-friendly sizes */
+    --touch-min: 48px;
+    --card-padding: 24px;
   }
 
   html {
@@ -17,19 +20,69 @@
 
   body {
     @apply bg-db-dark text-db-light font-sans text-base;
+    font-size: 18px;
     min-height: 100dvh;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 24px;
   }
 
   /* Touch targets: minimum 48px for glove operation */
   button,
   [role='button'],
   a[href].touch-target {
-    @apply min-h-touch min-w-touch;
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+  }
+
+  input,
+  select,
+  textarea {
+    min-height: var(--touch-min);
+  }
+}
+
+@layer components {
+  .card {
+    padding: var(--card-padding);
   }
 }
 
 @layer utilities {
   .touch-target {
     @apply min-h-[48px] min-w-[48px] inline-flex items-center justify-center;
+  }
+}
+
+/* Print: hide nav, header chrome, show quick reference */
+@media print {
+  header,
+  nav,
+  .no-print,
+  [data-no-print] {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  body {
+    background: white;
+    color: #111;
+  }
+  .print-only {
+    display: block !important;
+  }
+  a[href]::after {
+    content: none;
   }
 }

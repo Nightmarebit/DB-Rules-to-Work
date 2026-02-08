@@ -54,10 +54,10 @@ export function TermList({ locale }: { locale: Locale }) {
   const categories: Category[] = ['all', 'zones', 'safety', 'communication', 'procedures', 'equipment'];
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="mx-auto max-w-2xl space-y-6 min-w-0">
       <section>
-        <h1 className="text-2xl font-bold text-db-light md:text-3xl">{t('nav.terms')}</h1>
-        <p className="mt-1 text-db-gray-400">{t('terms.subtitle')}</p>
+        <h1 className="break-words text-2xl font-bold text-db-light md:text-3xl">{t('nav.terms')}</h1>
+        <p className="mt-1 break-words text-db-gray-400">{t('terms.subtitle')}</p>
       </section>
 
       <ProgressBar value={progressPct} max={100} label={t('common.progress')} showValue />
@@ -103,8 +103,17 @@ export function TermList({ locale }: { locale: Locale }) {
 
       <ul className="space-y-4">
         {filtered.map((term) => (
-          <li key={term.id}>
-            <TermCard term={term} locale={locale} />
+          <li key={term.id} id={term.id}>
+            <TermCard
+              term={term}
+              locale={locale}
+              relatedTerms={
+                term.relatedTerms?.map((id) => ({
+                  id,
+                  label: (terminology.find((t) => t.id === id) as unknown as Record<string, string>)?.[locale] ?? id,
+                })) ?? []
+              }
+            />
           </li>
         ))}
       </ul>

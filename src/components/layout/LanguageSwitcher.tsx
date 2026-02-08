@@ -29,8 +29,8 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-1 rounded-lg bg-db-gray-800 p-1">
-      <Globe className="ml-1 h-5 w-5 text-db-gray-400" aria-hidden />
+    <div className="flex flex-wrap items-center gap-1.5 rounded-lg bg-db-gray-800 p-1.5">
+      <Globe className="ml-0.5 h-5 w-5 shrink-0 text-db-gray-200" aria-hidden />
       {(Object.keys(localeLabels) as Array<keyof typeof localeLabels>).map(
         (loc) => (
           <button
@@ -38,10 +38,10 @@ export function LanguageSwitcher() {
             type="button"
             onClick={() => switchLocale(loc)}
             disabled={isPending}
-            className={`min-h-[44px] min-w-[44px] rounded-md px-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-db-red focus:ring-offset-2 focus:ring-offset-db-dark disabled:opacity-50 ${
+            className={`min-h-[48px] min-w-[48px] rounded-md px-3 text-base font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-db-red focus:ring-offset-2 focus:ring-offset-db-dark disabled:opacity-50 ${
               locale === loc
                 ? 'bg-db-red text-white'
-                : 'text-db-gray-300 hover:bg-db-gray-700 hover:text-db-light'
+                : 'bg-db-gray-700 text-db-light hover:bg-db-gray-600'
             }`}
             aria-label={`Switch to ${localeLabels[loc]}`}
             aria-current={locale === loc ? 'true' : undefined}

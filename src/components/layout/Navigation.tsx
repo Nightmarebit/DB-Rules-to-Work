@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import {
   Home,
+  FileText,
   ListOrdered,
   BookOpen,
   Shield,
@@ -14,6 +15,7 @@ import {
 
 const navItems = [
   { href: '/', icon: Home, key: 'home' },
+  { href: '/reference', icon: FileText, key: 'reference' },
   { href: '/structure', icon: ListOrdered, key: 'structure' },
   { href: '/terms', icon: BookOpen, key: 'terms' },
   { href: '/rules', icon: Shield, key: 'rules' },

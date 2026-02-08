@@ -48,7 +48,8 @@ Output: `out/` (static export).
    Подставь свой логин и имя репозитория вместо `ТВОЙ_ЛОГИН` и `ИМЯ_РЕПО`.
 
 3. **Включи GitHub Pages**  
-   В репо: **Settings** → **Pages** → **Source**: выбери **GitHub Actions**.
+   В репо: **Settings** → **Pages** → **Source**: выбери **GitHub Actions** (не Branch).  
+   Если видишь 404 «There isn't a GitHub Pages site here» — проверь, что Source = GitHub Actions и что workflow в **Actions** завершился успешно.
 
 4. **Дождись деплоя**  
    После пуша в **Actions** запустится workflow «Deploy to GitHub Pages». Через 1–2 минуты сайт будет доступен по ссылке:
@@ -56,6 +57,14 @@ Output: `out/` (static export).
    https://ТВОЙ_ЛОГИН.github.io/ИМЯ_РЕПО/
    ```
    Например: `https://nightmare.github.io/DB-APP/`
+
+5. **Кастомный домен (рабочий сайт)**  
+   Чтобы открывать сайт по своему домену (например `safelearn.example.com`):
+   - В репо открой **Settings** → **Pages** → **Custom domain**: введи домен и сохрани.
+   - В `public/CNAME` замени `safelearn.yourdomain.com` на свой домен (например `safelearn.example.com`) и запушь.
+   - У хостинга DNS добавь запись **CNAME**: имя поддомена → `ТВОЙ_ЛОГИН.github.io`.  
+   Сайт будет доступен по `https://твой-домен.com/ИМЯ_РЕПО/` (project site).  
+   Если нужен сайт строго в корне (`https://твой-домен.com/`), используй репозиторий **user/org site** (`username.github.io`) и в **Actions** запусти workflow вручную, выбрав **Run workflow** и галочку **Deploy for custom domain at root**.
 
 ### Вариант 2: Vercel (короткая ссылка)
 

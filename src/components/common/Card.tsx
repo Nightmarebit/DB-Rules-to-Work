@@ -8,7 +8,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ as: Component = 'div', className = '', ...props }, ref) => (
     <Component
       ref={ref}
-      className={`rounded-xl border border-db-gray-700 bg-db-gray-800/50 shadow-lg ${className}`}
+      className={`card rounded-xl border border-db-gray-700 bg-db-gray-800/50 shadow-lg ${className}`}
       {...props}
     />
   )

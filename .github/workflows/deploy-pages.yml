@@ -3,6 +3,13 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      custom_domain_root:
+        description: 'Deploy for custom domain at root (site at https://yourdomain.com/)'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -34,22 +41,49 @@ jobs:
 
       - name: Build
         env:
-          BASE_PATH: /${{ github.event.repository.name }}
           NODE_ENV: production
-        run: npm run build
-
-      - name: Fix manifest start_url for GitHub Pages
         run: |
           REPO="${{ github.event.repository.name }}"
+          if [ "${{ github.event.inputs.custom_domain_root }}" = "true" ]; then
+            export BASE_PATH=""
+            export NEXT_PUBLIC_BASE_PATH=""
+          else
+            export BASE_PATH="/$REPO"
+            export NEXT_PUBLIC_BASE_PATH="/$REPO"
+          fi
+          npm run build
+
+      - name: Fix manifest start_url
+        run: |
+          REPO="${{ github.event.repository.name }}"
+          ROOT_DEPLOY="${{ github.event.inputs.custom_domain_root == 'true' }}"
           MANIFEST="out/manifest.json"
           if [ -f "$MANIFEST" ]; then
-            sed -i "s|\"start_url\": \"/\"|\"start_url\": \"/$REPO/\"|g" "$MANIFEST"
+            if [ "$ROOT_DEPLOY" = "true" ]; then
+              sed -i 's|"start_url": "./"|"start_url": "/"|g' "$MANIFEST"
+            else
+              sed -i "s|\"start_url\": \"/\"|\"start_url\": \"/$REPO/\"|g" "$MANIFEST"
+              sed -i "s|\"start_url\": \"./\"|\"start_url\": \"/$REPO/\"|g" "$MANIFEST"
+            fi
           fi
+
+      - name: Prepare artifact (project site)
+        if: github.event.inputs.custom_domain_root != 'true'
+        run: |
+          REPO="${{ github.event.repository.name }}"
+          mkdir -p deploy/"$REPO"
+          cp -r out/* deploy/"$REPO"/
+
+      - name: Prepare artifact (custom domain root)
+        if: github.event.inputs.custom_domain_root == 'true'
+        run: |
+          mkdir -p deploy
+          cp -r out/* deploy/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: out
+          path: deploy
 
   deploy:
     environment:

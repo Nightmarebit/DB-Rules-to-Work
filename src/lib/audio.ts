@@ -9,6 +9,8 @@ const LANG_MAP: Record<string, string> = {
   uk: 'uk-UA',
 };
 
+/** Supported BCP-47 codes: de-DE, ru-RU, en-US, ar-SA (plus pl, ro, sq, uk via LANG_MAP) */
+
 let speechSynth: SpeechSynthesis | null = null;
 
 function getSpeechSynth(): SpeechSynthesis | null {
@@ -17,16 +19,25 @@ function getSpeechSynth(): SpeechSynthesis | null {
   return speechSynth;
 }
 
+/**
+ * Text-to-speech via Web Speech API (speechSynthesis).
+ * @param text - Text to speak
+ * @param lang - Locale code (e.g. 'de', 'ru'); mapped to de-DE, ru-RU, en-US, ar-SA
+ * @param options - rate (default 0.9), volume (default 1)
+ * @throws Error if speechSynthesis is not supported
+ */
 export function speak(
   text: string,
-  lang: string = 'de',
+  lang: string,
   options?: { rate?: number; volume?: number }
 ): void {
   const synth = getSpeechSynth();
-  if (!synth) return;
+  if (!synth) {
+    throw new Error('Speech synthesis is not supported in this environment');
+  }
 
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = LANG_MAP[lang] || lang;
+  utterance.lang = LANG_MAP[lang] ?? lang ?? 'de-DE';
   utterance.rate = options?.rate ?? 0.9;
   utterance.volume = options?.volume ?? 1;
 
