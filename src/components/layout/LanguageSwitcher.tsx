@@ -81,8 +81,8 @@ export function LanguageSwitcher() {
         </div>
       )}
 
-      {/* Desktop: inline buttons */}
-      <div className="hidden flex-wrap items-center gap-1.5 rounded-lg bg-db-gray-800 p-1.5 md:flex">
+      {/* Desktop: inline buttons — visible contrast for glove use */}
+      <div className="lang-switcher-desktop hidden flex-wrap items-center gap-2 rounded-xl bg-db-gray-800 p-2 md:flex">
         <Globe className="ml-0.5 h-5 w-5 shrink-0 text-db-gray-200" aria-hidden />
         {(Object.keys(localeLabels) as Array<keyof typeof localeLabels>).map((loc) => (
           <button
@@ -90,7 +90,7 @@ export function LanguageSwitcher() {
             type="button"
             onClick={() => switchLocale(loc)}
             disabled={isPending}
-            className={`min-h-[44px] min-w-[44px] rounded-md px-3 text-base font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#EC0016] focus:ring-offset-2 focus:ring-offset-db-dark disabled:opacity-50 ${
+            className={`min-h-[48px] min-w-[48px] rounded-lg px-3 text-base font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[#EC0016] focus:ring-offset-2 focus:ring-offset-db-dark disabled:opacity-50 ${
               locale === loc ? 'bg-[#EC0016] text-white' : 'bg-db-gray-700 text-db-light hover:bg-db-gray-600'
             }`}
             aria-label={`Switch to ${localeLabels[loc]}`}
