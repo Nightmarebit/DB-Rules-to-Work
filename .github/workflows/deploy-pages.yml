@@ -42,14 +42,12 @@ jobs:
       - name: Build
         env:
           NODE_ENV: production
+          BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
         run: |
-          REPO="${{ github.event.repository.name }}"
           if [ "${{ github.event.inputs.custom_domain_root }}" = "true" ]; then
             export BASE_PATH=""
             export NEXT_PUBLIC_BASE_PATH=""
-          else
-            export BASE_PATH="/$REPO"
-            export NEXT_PUBLIC_BASE_PATH="/$REPO"
           fi
           npm run build
 
