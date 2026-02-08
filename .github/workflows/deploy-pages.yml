@@ -53,7 +53,7 @@ jobs:
           fi
           npm run build
 
-      - name: Fix manifest start_url
+      - name: Fix manifest for GitHub Pages
         run: |
           REPO="${{ github.event.repository.name }}"
           ROOT_DEPLOY="${{ github.event.inputs.custom_domain_root == 'true' }}"
@@ -65,6 +65,8 @@ jobs:
               sed -i "s|\"start_url\": \"/\"|\"start_url\": \"/$REPO/\"|g" "$MANIFEST"
               sed -i "s|\"start_url\": \"./\"|\"start_url\": \"/$REPO/\"|g" "$MANIFEST"
             fi
+            # Icons: absolute /icons/ -> relative so they work under .../REPO/
+            sed -i 's|"/icons/|"icons/|g' "$MANIFEST"
           fi
 
       - name: Prepare artifact (project site)

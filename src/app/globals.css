@@ -16,12 +16,17 @@
 
   html {
     @apply antialiased;
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-db-dark text-db-light font-sans text-base;
     font-size: 18px;
     min-height: 100dvh;
+    min-height: 100vh;
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
   }
 
   h1 {

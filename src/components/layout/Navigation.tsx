@@ -30,10 +30,10 @@ export function Navigation() {
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 z-40 border-t border-db-gray-700 bg-db-dark md:static md:w-56 md:shrink-0 md:border-t-0 md:border-r md:border-db-gray-700 md:py-4"
+      className="fixed bottom-0 left-0 right-0 z-40 border-t border-db-gray-700 bg-db-dark pl-[env(safe-area-inset-left,0)] pr-[env(safe-area-inset-right,0)] pb-[env(safe-area-inset-bottom,0)] md:static md:w-56 md:shrink-0 md:border-t-0 md:border-r md:border-db-gray-700 md:py-4 md:pl-0 md:pr-0 md:pb-0"
       aria-label="Main navigation"
     >
-      <ul className="flex justify-around gap-1 px-2 py-2 md:flex-col md:justify-start md:gap-0 md:px-0">
+      <ul className="flex justify-around gap-0.5 px-1 py-2 sm:gap-1 sm:px-2 md:flex-col md:justify-start md:gap-0 md:px-0">
         {navItems.map(({ href, icon: Icon, key }) => {
           const isActive =
             pathname === href ||
@@ -42,7 +42,7 @@ export function Navigation() {
             <li key={key}>
               <Link
                 href={href}
-                className={`flex min-h-[48px] items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-db-red focus:ring-inset md:min-h-[44px] ${
+                className={`flex min-h-[48px] min-w-0 shrink items-center justify-center gap-3 rounded-lg px-2 py-3 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-db-red focus:ring-inset md:min-w-[auto] md:justify-start md:px-4 md:min-h-[44px] ${
                   isActive
                     ? 'bg-db-red/20 text-db-red'
                     : 'text-db-gray-300 hover:bg-db-gray-800 hover:text-db-light'
